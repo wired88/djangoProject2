@@ -1,0 +1,406 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %} Home {% endblock %}</title> {% comment 'hier werden Standardwerte festgelegt, welche nur verändert werden, wenn sie in einem anderen File überschireben werden' %}{% endcomment %}
+
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: beige;
+            margin: 0;  /*rückt die inhalte im Body 0 px ein */
+        }
+        .image {
+            position: absolute;
+            width: 100%;
+            height: 75%;
+            bottom: 0;
+            border: 2px solid black;
+        }
+        .head_container {
+            position: absolute;
+            top: 50px;
+            width: 100%;
+            height: 175px;
+            background-color: #03442c;
+
+        }
+        .login_container {
+            position: absolute;
+            left: 30%;
+            top: 340px;
+            width: 550px;
+            height: 500px;
+            background-color: beige;
+            border: 1px solid black;
+            border-radius: 5px;
+            padding-left: 20px;
+            box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.5)
+            }
+        .container {
+            position: absolute;
+            justify-content: center;
+            color: rgb(0, 0, 0);
+            top: 0;
+            margin: 30px;
+            right: 30px;
+            vertical-align: top; /* die eleente werden nach em oberen punkt zentriert. so bewegen sie sich beihover nicht wenn eines größer wird */
+        }
+        button {
+            color: white; /*fontcolor*/
+            font-weight: bold;  /*dicke*/
+            font-size: 14px;
+            box-shadow: 3px 3px 3px rgb(0, 0, 0, 0.4); /* schatten zeichen (rechts, unten, wie sehr verwischt) */
+            cursor: pointer; /*bei berührung mit cursor wird dieser als Hand dargststellt*/
+            border-radius: 3px; /* ecken abrunden */
+            border: 2px solid black; /* legt die breite, gleichmäßigkeit ud die Farbe fest */
+            margin: 15px; /* abstand zwischen den einzelnen buttons */
+            transition: background-color 0.3s, padding 0.3s; /* macht, beim rauf gehen smooth in andere Farbe und beim verlassen dasselbe (wenn in :hover nur beim raufgehen */
+            padding: 10px;
+            vertical-align: top;
+        }
+        .button-class {
+            position: relative;
+            background-color: #03442c; /* bg button color*/
+
+        }
+
+
+
+        .button-class:hover {
+            box-shadow: 5px 5px 5px rgb(0, 0, 0, 0.4);
+            background-color: #29ce75;
+            color: beige;
+            padding: 12px;
+            text-align: center;
+
+        }
+        .button-class:active {
+            background-color: #af5757;
+            padding: 9px;
+        }
+        .searchbox {
+            position: relative;
+            left:50px;
+            top: 9%;
+            border-radius: 3px;
+            border: 1px solid black;
+            width: 700px;
+            min-height: 40px;
+            height: auto;
+            font-size: 20px;
+            margin-top: 3px;
+            margin-bottom: 3px;
+            line-height: 25px;
+            color: black;
+            transition: background-color;
+            line-break: strict;
+        }
+        .search-container {
+            position: absolute;
+            border-radius: 40px;
+            border: 1px solid black;
+            top: 400px;
+            left: 28%;
+            background-color: #03442c;
+            width: 800px;
+            height: 60px;
+
+        }
+        .delete_button {
+            position: absolute;
+            right: -8px;
+            border-radius: 50%;
+            color: #000000;
+            font-weight: bold;
+            background-color: #055b3b;
+            padding: 3px 6px;
+            transition: opacity 0.3s;
+
+        }
+        .delete_button:hover {
+            opacity: 0.7;
+        }
+        .delete_button:active {
+            opacity: 0.3;
+
+        }
+        .information {
+            position: absolute;
+            left: 180px;
+            bottom: -47px;
+            color: black;
+        }
+        .search-img {
+            position: absolute;
+            top: 11.5%;
+            right: 750px;
+            width: 47px;
+            height: 47px;
+
+        }
+        .search-label {
+            position: absolute;
+            top: -40px;
+            left: 200px;
+            font-weight: bold;
+            color: white;
+            border: 3px solid black;
+            padding: 4px 4px;
+            border-radius: 7px;
+            background-color: #7c3300;
+        }
+
+        .list-item { /* hier werden die Daten für die einzelnen Spalten festgelegt. */
+            margin: 20px 40px;
+            font-weight: bold;
+            border: 1px solid black;
+            border-radius: 7px;
+            background-color: white;
+        }
+        .product-container {
+            position: absolute;
+            left: 33%;
+            top: 570px;
+            background-color: #055b3b;
+            width: 600px;
+            border: 4px solid #7c3300;
+            border-radius: 12px;
+        }
+        .btn.btn-primary {
+            position: absolute;
+            right: 3px;
+            margin-right: 1px;
+            margin-top: -40px;
+            padding: 14px;
+            background-color: rgb(232, 41, 41);
+            border-radius: 7px;
+            display: flex; /*verschiebt das Bild in die Mitte */
+            justify-content: center; /*verschiebt das Bild in die Mitte */
+            align-items: center; /*verschiebt das Bild in die Mitte */
+            color: black;
+        }
+        .btn.btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 70%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            transition: 0.5s;
+            transform: skewX(-15deg);
+        }
+        button:hover::before {
+            left: 8px;
+        }
+        .btn.btn-primary::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 1px;
+            width: 10px;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            transition: 0.5s;
+            transform: skewX(-15deg);
+        }
+        .btn.btn-primary:hover::after {
+            left: 190px;
+        }
+        .product-text {
+            color: black;
+        }
+        .trashcan-img {
+            position: absolute;
+            height: 18px;
+            width: 18px;
+        }
+        .search-button {
+            background-color: white;
+            color: black;
+            position: absolute;
+            right: -25px;
+            bottom: -44px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        .head-button {
+            position: absolute;
+            background-color: #055b3b;
+            color: white;
+            border-radius: 0;
+            transition: background-color 0.3s;
+            padding: 12px;
+            margin-top: 0;
+            display: flex;
+            justify-content: center;
+            border: 1px solid black;
+            box-shadow: 0 0 0 white;
+        }
+        .head-button:hover {
+            background-color: beige;
+            color: black;
+        }
+        .head-button:active {
+            background-color: #ff9898;
+            color: black;
+        }
+        .footer {
+            background-color: #055b3b;
+            color: white;
+            width: 100%;
+            height: 50px;
+            position: absolute;
+            margin-top: 1300px;
+
+        }
+        .welcome-text {
+            position: absolute;
+            font-weight: bold;
+            color: white;
+            font-size: 15px;
+            right: 300px;
+            top: 10px;
+        }
+
+        {% block styles %}
+            /* styles for other urls */
+        {% endblock %}
+
+
+
+        </style>
+
+    <script>
+       function addItem() {   //1 zuerst signalisieren wir, dass wir einen code schreiben wollen //
+            let itemName = document.querySelector('#product-Item'); // der Wert der im input-field angegeben wurde, wird in einer variable gespeichert. //
+            let product_name = itemName.value;
+            let token = '{{ csrf_token }}'; // wir erstellen den token, damit nicht jeder mit unerem Server kommunizieren kann //
+            let formData = new FormData(); // wir erstellen eine neue variabel und übergeben ihr eine neue, leere Liste //
+            formData.append('product_name', product_name); // wir fügen den eingegebenen Wert und den token der Liste hinzu //
+            formData.append('csrfmiddlewaretoken', token);
+            fetch('/', {   // wir sagen hier, dass wir etwas von my list zu unserer db hinzufügen wollen. //
+                method: 'POST',   // post steht hierbei für hochladen, da man mit fetch auch sachen downloaden kann //
+                body: formData  // hier sagen wir, dass es in form data gepseichert werden soll //
+            })  // bei fetch darauf achten, dass der korrekte url von dem aus gesendet wird in fetch hinterlegt ist. es wird von der homepage gesendet also einfach '/' //
+            .then(response => {
+                if (!response.ok) {
+                    console.log('Error:', response.status, response.statusText);
+                } else {
+                    console.log('Fetch request completed successfully')
+                    window.location.reload();
+                }
+            });
+       }
+        function ClearField() {
+            document.getElementById("product-Item").value = "";
+        }
+        </script>
+
+</head>
+<body>
+
+    <header>
+        <div class="head_container">
+            {% if request.user.is_authenticated %}
+            <p class="welcome-text">Welcome {{ request.user.username }}!</p>
+            <button class="head-button" style="right: 30px;" onclick="window.location.href='{% url 'home:logout' %}';">
+            Logout
+            </button>
+            {% else %}
+            <button class="head-button" style="right: 150px;" title="Login" onclick="window.location.href='{% url 'home:login' %}';">
+                Login
+            </button> {% comment #2  %} {%  endcomment %}
+            <button class="head-button" style="right: 30px;" title="Register" onclick="window.location.href='{% url 'home:register' %}';">
+                Register
+            </button>
+            {% endif %}
+            <img class="image" src="{% static 'home/home-headline.jpg' %}" alt="Gemuese">
+            <button class="head-button" title="Description" style="left:30%;" onclick="window.location.href='{% url 'home:description' %}';">
+                Description
+            </button>
+        </div>
+    </header>
+
+{% block authForm %}
+
+    <div class="search-container">
+        <label class="search-label" for="product-Item">Which groceries do you have at home?</label> {%  comment %} labesl stehen am Anfang einer input leiste und beschreiben, was der user eingeben soll {% endcomment %}
+            <input type="text" id="product-Item" title="Fill the Pot" class="searchbox" maxlength="50"
+                placeholder="Fill the Pot">
+
+
+        <button class="delete_button" title="delete line" onclick="ClearField()">
+             &#x2718;
+        </button>
+        <p class="information">Please keep in mind: Just the Product name - no comma</p>
+        <button class="button-class" onclick="addItem()" title="Add Grocery" style="position: absolute; right: 0; bottom: -65px;">
+            Add
+        </button>
+        <img class="search-img" src="{% static 'home/pot2.png' %}" alt=Pot>
+    </div>
+
+    <div class="product-container">
+        {% for product in groceries %}
+            <div class="list-item">
+               <p class="product-text">&#x2022; {{ product.name }}</p>
+                <button class="btn btn-primary" title="delete">
+                    <img class="trashcan-img" src="{% static 'home/trash-can.png'%}" alt="trash">
+                </button>
+            </div>
+        {% endfor %}
+        <button class="button-class" style="position:absolute; right: -25px; bottom: -48px;" title="search">search recipes</button>
+    </div>
+
+{% endblock %}
+
+
+
+
+
+<div class="footer">
+
+
+
+
+</div>
+
+
+
+
+
+</body>
+</html>
+
+
+
+
+{% comment Jetzt möchte ich eine logggedin-Seite auf der Seite einbauen ohne eine zusätzliche App bauen zu müssen.%}
+{% in html kann mnan seiten so coden, dass sich nur bestimmte elemente bei ihnen verändern (wie bei der Vererbung %}
+{% heist soviel wie: Der User klickt auf einen Link um sich anzumelden. Jetzt ändert sic nur der körtper der seite
+aber zB die Fußzeile, das Hintergrundbild usw bleiben gleich. Diesen Prozess startet man mit:
+ {% block authForm %}
+
+
+
+{% endblock %}
+in diesen Bereich kommt immer nur das was ich verändert.
+ %}
+{% endcomment %}
+
+
+
+{% comment %}
+ToDo Morgen:
+- finish headmenu (top 10 recipes)
+- drop down menu seite
+- User Interface? (anfangen)
+- fußzeile
+# 2 davon morgen #
+
+
+
+
+{% endcomment %}
