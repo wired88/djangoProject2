@@ -168,7 +168,7 @@ def delete_view(request, pk):
 # diefinierst du einfach die url
 
 
-# todo#
+
 # - User kann selbstständig Rezepte hochladen
 # - Profile-Page: create your own recipe!
 
