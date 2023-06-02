@@ -1,0 +1,54 @@
+{% extends 'home/base2.html' %} {% comment gibt an da wir den Code block aus home/base benutzen - so ähnlich wie vererbung von files %}{% endcomment %}
+{% load static %}
+
+
+{% block title %} Home - Create Your own Recipe {% endblock %}
+
+{% block styles %}
+
+
+
+{% endblock %}
+
+
+
+
+{% block authForm %}
+
+<form method="get">
+    <div>
+        <h1>{{ recipe.title }}</h1>
+        {{ object.author }} <br>
+        {{ object.body }}<br>
+    </div>
+
+
+
+</form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}

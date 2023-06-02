@@ -1,0 +1,83 @@
+
+
+
+
+
+
+
+
+
+
+
+
+<button class="sidebar_button" id="settings_button" title="Settings" onclick="">{% comment %} path muss zur settings-page {% endcomment %}
+                 <img class="sidebar_img" src="{% static 'home/settings.png' %}" alt="Settings" title="Settings">
+                    </button>
+
+
+
+
+
+flex-grow: 1;   /* verteilt die restliche breite des element gleichmäßig auf (wenn der container 300 px breit ist und 2 elemente mit je 100px platz enthält, man dann flex-grow: 1 setzt, werden die restlichen 100px glwichmäßig unter den beiden elemeneten aufgeteilt- jedes hat also 150px platz)*/
+
+
+
+
+
+.sidebar .top_sidebar_info{
+            position: absolute;
+            width: 100%;
+            height: 30%;
+            color: white;
+            display: none;
+        }
+
+        .sidebar.open .top_sidebar_info {
+            display: block;
+        }
+
+
+
+.middle_sidebar {
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 37%;
+            top: 25%;
+
+             /* für alles was vertikal über den biödschirm rand verläuft wird eine scrollbar eingefügt */
+
+        }
+
+        .bottom_sidebar {
+            position: absolute;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            height: 33%;
+            top: 66%;
+
+        }
+style="right: 0; width: 90%; height: 41%; top: 1px; margin-bottom: 2px;"
+
+
+
+
+ .sidebar_item_container {
+            padding: 5px 0;
+            margin: 2px;
+            list-style: none;
+            left: 0;
+            flex-direction: column;
+            align-items: center;
+            display: block;
+            background-color: black;
+
+        }
+
+
+
+onclick="window.location.href = '{% url 'home:password' %}';"

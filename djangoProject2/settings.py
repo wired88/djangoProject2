@@ -49,7 +49,7 @@ INSTALLED_APPS = [
 STATIC_ROOT = 'static/'
 
 
-LOGIN_REDIRECT_URL = None
+#LOGIN_REDIRECT_URL = None
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -118,7 +118,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'de-de'
 
-TIME_ZONE = 'UTC+2'
+TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
@@ -134,3 +134,4 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+

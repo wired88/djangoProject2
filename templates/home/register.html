@@ -15,7 +15,7 @@
 
     <div class="login_container">
         <h1>Register</h1>
-        {{ register_form.as_p }} {% comment mit .as_p geben wir den wert als <p> aus %} {%  endcomment %}
+        {{ form.as_p }} {% comment mit .as_p geben wir den wert als <p> aus %} {%  endcomment %}
         {% csrf_token %}
 
         <button class='button-class' type="submit">Register</button>

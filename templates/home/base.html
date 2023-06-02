@@ -5,27 +5,33 @@
     <meta charset="UTF-8">
     <title>{% block title %} Home {% endblock %}</title> {% comment 'hier werden Standardwerte festgelegt, welche nur verändert werden, wenn sie in einem anderen File überschireben werden' %}{% endcomment %}
 
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+
     <style>
         body {
             font-family: 'Roboto', sans-serif;
             background-color: beige;
             margin: 0;  /*rückt die inhalte im Body 0 px ein */
         }
+
         .image {
             position: absolute;
             width: 100%;
             height: 75%;
             bottom: 0;
             border: 2px solid black;
+            z-index: 0; /* legt ebene des Bildes fest ( bei überlappen wird das Bild eine ebene nach hinten verlegt, sodass es hinter einem anderen objekt liegt */
         }
+
         .head_container {
             position: absolute;
             top: 50px;
-            width: 100%;
+            width: 101%;
             height: 175px;
             background-color: #03442c;
-
+            box-shadow: 0 3px 3px rgba(0, 0, 0, .5);
         }
+
         .login_container {
             position: absolute;
             left: 30%;
@@ -38,6 +44,9 @@
             padding-left: 20px;
             box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.5)
             }
+
+
+
         .container {
             position: absolute;
             justify-content: center;
@@ -47,7 +56,10 @@
             right: 30px;
             vertical-align: top; /* die eleente werden nach em oberen punkt zentriert. so bewegen sie sich beihover nicht wenn eines größer wird */
         }
+
         button {
+            position: absolute;
+            background-color: #03442c;
             color: white; /*fontcolor*/
             font-weight: bold;  /*dicke*/
             font-size: 14px;
@@ -57,29 +69,29 @@
             border: 2px solid black; /* legt die breite, gleichmäßigkeit ud die Farbe fest */
             margin: 15px; /* abstand zwischen den einzelnen buttons */
             transition: background-color 0.3s, padding 0.3s; /* macht, beim rauf gehen smooth in andere Farbe und beim verlassen dasselbe (wenn in :hover nur beim raufgehen */
-            padding: 10px;
-            vertical-align: top;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
+
         .button-class {
-            position: relative;
-            background-color: #03442c; /* bg button color*/
-
+            position: absolute;
+            background-color: #03442c;
         }
 
-
-
-        .button-class:hover {
+        button:hover {
             box-shadow: 5px 5px 5px rgb(0, 0, 0, 0.4);
-            background-color: #29ce75;
-            color: beige;
-            padding: 12px;
+            background-color: beige;
+            color: black;
             text-align: center;
-
         }
+
         .button-class:active {
             background-color: #af5757;
             padding: 9px;
         }
+
         .searchbox {
             position: relative;
             left:50px;
@@ -97,6 +109,7 @@
             transition: background-color;
             line-break: strict;
         }
+
         .search-container {
             position: absolute;
             border-radius: 40px;
@@ -106,40 +119,43 @@
             background-color: #03442c;
             width: 800px;
             height: 60px;
-
         }
+
         .delete_button {
             position: absolute;
             right: -8px;
             border-radius: 50%;
             color: #000000;
             font-weight: bold;
-            background-color: #055b3b;
+
             padding: 3px 6px;
             transition: opacity 0.3s;
-
+            overflow: hidden;
         }
+
         .delete_button:hover {
             opacity: 0.7;
         }
+
         .delete_button:active {
             opacity: 0.3;
-
         }
+
         .information {
             position: absolute;
             left: 180px;
             bottom: -47px;
             color: black;
         }
+
         .search-img {
             position: absolute;
             top: 11.5%;
             right: 750px;
             width: 47px;
             height: 47px;
-
         }
+
         .search-label {
             position: absolute;
             top: -40px;
@@ -159,15 +175,18 @@
             border-radius: 7px;
             background-color: white;
         }
+
         .product-container {
             position: absolute;
             left: 33%;
             top: 570px;
-            background-color: #055b3b;
+            background-color: #03442c;
             width: 600px;
-            border: 4px solid #7c3300;
+            border: 1px solid black;
             border-radius: 12px;
+            box-shadow: 5px 5px 3px rgba(0, 0, 0, .5)
         }
+
         .btn.btn-primary {
             position: absolute;
             right: 3px;
@@ -176,11 +195,9 @@
             padding: 14px;
             background-color: rgb(232, 41, 41);
             border-radius: 7px;
-            display: flex; /*verschiebt das Bild in die Mitte */
-            justify-content: center; /*verschiebt das Bild in die Mitte */
-            align-items: center; /*verschiebt das Bild in die Mitte */
             color: black;
         }
+
         .btn.btn-primary::before {
             content: '';
             position: absolute;
@@ -192,9 +209,8 @@
             transition: 0.5s;
             transform: skewX(-15deg);
         }
-        button:hover::before {
-            left: 8px;
-        }
+
+
         .btn.btn-primary::after {
             content: "";
             position: absolute;
@@ -206,17 +222,21 @@
             transition: 0.5s;
             transform: skewX(-15deg);
         }
+
         .btn.btn-primary:hover::after {
             left: 190px;
         }
+
         .product-text {
             color: black;
         }
+
         .trashcan-img {
             position: absolute;
             height: 18px;
             width: 18px;
         }
+
         .search-button {
             background-color: white;
             color: black;
@@ -226,55 +246,433 @@
             font-size: 14px;
             font-weight: bold;
         }
+
         .head-button {
             position: absolute;
-            background-color: #055b3b;
+            background-color: #03442c;
             color: white;
             border-radius: 0;
             transition: background-color 0.3s;
-            padding: 12px;
-            margin-top: 0;
-            display: flex;
-            justify-content: center;
-            border: 1px solid black;
-            box-shadow: 0 0 0 white;
+            padding: 11px;
+            top: -15px;
+            border: 0;
+            box-shadow: 0 0;
         }
+
         .head-button:hover {
             background-color: beige;
             color: black;
+            border: 1px solid black;
         }
+
         .head-button:active {
             background-color: #ff9898;
             color: black;
         }
+
         .footer {
-            background-color: #055b3b;
+            background-color: #03442c;
             color: white;
             width: 100%;
             height: 50px;
             position: absolute;
             margin-top: 1300px;
-
         }
+
         .welcome-text {
             position: absolute;
             font-weight: bold;
             color: white;
             font-size: 15px;
-            right: 300px;
-            top: 10px;
+            right: 200px;
+            top: 0;
         }
 
+        .logo {
+            position: absolute;
+            left: 30px;
+            top: -56px;
+            width: 100px;
+            height: 60px;
+        }
+
+        .logo:hover {
+            cursor: pointer;
+        }
+
+        .dropdown_button {
+            position: absolute;
+            left: -14px;
+            top: -14px;
+            width: 45px;
+            height: 40px;
+            padding: 5px;
+            background-color: #03442c;
+            border: 0;
+            box-shadow: 0 0;
+            border-radius: 0;
+        }
+        .dropdown_button:hover {
+            background-color: transparent;
+        }
+
+        .dropdown_button_img {
+            margin: 2px 0;
+            height: 100%;
+            width: 100%;
+            transition: opacity 0.1s;
+        }
+
+        .dropdown_button_img:hover {
+            opacity: 0.6;
+        }
+
+        .sidebar_button {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: transparent;
+            border-radius: 0;
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            border: 0;
+            box-shadow: 0 0;
+        }
+
+
+
+        .sidebar_button:hover {
+            background-color: beige;
+        }
+
+        .sidebar_button:active {
+            fill-opacity: 0.6;
+        }
+
+
+        .sidebar .sidebar_button_text { {% comment %} solang sidebar closed, wird der Text nicht angezeigt {% endcomment %}
+            display: none;
+            position: absolute;
+            margin-left: 2px;
+        }
+
+        .sidebar.open .sidebar_button_text {
+            display: flex;
+            margin-right: 40px;
+            text-align: center;
+        }
+
+        .sidebar .sidebar_img {
+            position: absolute;
+            transition: opacity 0.2s;
+            margin: 2px 4px;
+            right: 2px;
+            width: 65%;
+            height: 100%;
+        }
+
+        .sidebar.open .sidebar_img {
+            height: 60%;
+            width: 20%;
+        }
+
+        .sidebar_img:hover {
+            opacity: 0.6;
+        }
+
+        .sidebar_container {
+            display: flex;
+        }
+
+        .sidebar {
+            position: relative;
+            display: flex;
+            flex-direction: column; /* packt alle eelemente vertikal in diesen Container */
+            margin-top: 5.7rem;
+            align-items: center;
+            width: 40px;
+            height: 170px;
+            padding: 2px 3px;
+            overflow-x: hidden; /* alles was horizontal über den rand hinausläuft wird versteckt/nicht angezeigt */
+            overflow-y: hidden;
+            flex-shrink: 0;
+            background-color: #03442c;
+        }
+
+
+
+
+
+
+
+        .sidebar.open {
+            width: 170px;
+            height: 270px;
+        }
+
+
+
+
+
+
+        .sidebar .sidebar_profile_btn {
+            border: 1px solid black;
+            top: -10px;
+            border-radius: 50%;
+            box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.4);
+            height: 70%;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            transition: opacity 0.3s;
+        }
+        .sidebar_profile_btn:hover {
+            opacity: 0.5;
+            background-color: transparent;
+        }
+
+        .sidebar.open .sidebar_profile_btn {
+            height: 50%;
+            width: 38%;
+        }
+
+
+
+
+
+
+
+
+
+        .sidebar .top_sidebar {
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            height: 20%;
+        }
+
+        .sidebar.open .top_sidebar {
+            height: 30%;
+        }
+
+        .sidebar .top_sidebar_info{
+            position: absolute;
+            width: 100%;
+            height: 30%;
+            color: white;
+            display: none;
+        }
+
+        .sidebar.open .top_sidebar_info {
+            display: block;
+            text-align: center;
+            bottom: 3px;
+            font-size: 12px;
+        }
+
+
+        .sidebar .under_sidebar {
+            height: 80%;
+            width: 100%;
+            overflow-x: hidden;
+            overflow-y: hidden;
+            flex-grow: 1;
+            top: 20%;
+        }
+        .sidebar.open .under_sidebar {
+            height: 70%;
+            width: 100%;
+            top: 30%;
+        }
+
+
+
+        .sidebar .item_blocks {             /* li container */
+            position: relative;
+            height: 20%;
+            width: 100%;
+            left: 0;
+            border-bottom: 1px solid black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            top: 20%;
+        }
+
+        .sidebar.open .item_blocks {
+            height: 15%;
+            width: 100%;
+            top: 30%;
+        }
+
+        .sidebar .sidebar_item_container {          /* ul block */
+            padding: 0 0;
+            list-style: none;
+            width: 100%;
+            height: 80%;
+            top: 20%;
+            flex-direction: column;
+            right: 0;
+        }
+
+        .sidebar.open .sidebar_item_container {
+            height: 100%;
+            top: 30%;
+        }
+
+
+
+        .sidebar.open .item_blocks {
+            width: 100%;
+            height: 15%;
+        }
+
+
         {% block styles %}
-            /* styles for other urls */
+
         {% endblock %}
 
+/* profile styles position: relative;
+            display: flex;
+            flex-direction: column; packt alle eelemente vertikal in diesen Container
+            margin-top: 5.7rem;
+            align-items: center;
+            width: 40px;
+            height: 170px;
+            padding: 2px 3px;
+            overflow-x: hidden; alles was horizontal über den rand hinausläuft wird versteckt/nicht angezeigt
+            overflow-y: hidden;
+            flex-shrink: 0;
+            background-color: #03442c; */
+
+.profile_sidebar_container {
+    position: relative;
+        width: 1000px;
+        height: 1000px;
+        background-color: rgba(241, 232, 207, 0.5);
+        border: 1px solid black;
+        box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.5);
+        display: flex;
+        justify-content: space-between;
+        left: 400px;
+       top: 300px;
+        border-radius: 4px;
+    }
+    .profile_sidebar {   /* nav bar */
+        display: flex;
+        flex-direction: column;
+        border-right: 1px solid black;
+        align-items: center;
+        justify-content: center;
+        width: 25%;
+        height: 100%;
+        overflow-x: hidden;
+        overflow-y: hidden;
+        background-color: rgba(252, 231, 176, 0.5);
+    }
+
+    .element_block { /* ul block */
+        padding: 3px 1px;
+        list-style: none;
+        border-top: 1px solid black;
+        width: 100%;
+        height: 100%;
+        flex-direction: column;
+        right: 0;
+        top: 15%;
+    }
+
+    .navigation_bar {     /* li container */
+        display: flex;
+        cursor: pointer;
+        width: 100%;
+        justify-content: center;
+        align-items: center;
+        height: 35px;
+        margin: 5px 0;
+        background-color: #03442c;
+        color: white;
+        font-weight: bold;
+        border: 1px solid black;
+        transition: background-color 0.2s;
+        border-radius: 0;
+    }
+
+    .navigation_bar:hover {
+        box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+        background-color: beige;
+        color: black;
+    }
+
+    .navigation_bar:active {
+        border-left: 15px solid black;
+    }
+
+/* for user_recipe.html */
+    .recipe_box {
+        border: 1px solid black;
+        width: 90%;
+        height: 90%;
+        background-color: green;
+        position: absolute;
+        display: grid;
+        grid-template-columns: 300px 300px 300px;
+        grid-template-rows: auto 400px;
+    }
+
+    .main {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        width: 70%;
+        height: 1200px;
+        top: 300px;
+        left: 200px;
+        background-color: yellow;
+        color: black;
+    }
+
+    .search-box {
+        width: 1000px;
+        position: absolute;
+        top: 100px;
+        height: 100px;
+        border: 1px solid black;
+        color: black;
+    }
 
 
-        </style>
+/* for user_recipes.html */
+    .recipe_element {
+        display: grid;
+        grid-template-columns: 400px;
+        grid-template-rows: 300px 100px;
+        border: 1px solid black;
+        margin: 5px;
+        align-items: center;
+        cursor: pointer;
+    }
+    .recipe_element:hover {
+        box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.6)
 
-    <script>
-       function addItem() {   //1 zuerst signalisieren wir, dass wir einen code schreiben wollen //
+
+
+    }
+
+    </style>
+
+
+
+
+<script>
+        function addItem() {   //1 zuerst signalisieren wir, dass wir einen code schreiben wollen //
             let itemName = document.querySelector('#product-Item'); // der Wert der im input-field angegeben wurde, wird in einer variable gespeichert. //
             let product_name = itemName.value;
             let token = '{{ csrf_token }}'; // wir erstellen den token, damit nicht jeder mit unerem Server kommunizieren kann //
@@ -297,13 +695,24 @@
         function ClearField() {
             document.getElementById("product-Item").value = "";
         }
+
+        document.getElementById("dropdown_menu_button").onclick = function() {
+
+        }
         </script>
 
 </head>
 <body>
 
-    <header>
-        <div class="head_container">
+    <header class="head_container">
+        <img class="image" src="{% static 'home/home-headline.jpg' %}" alt="Headline">
+        <img class="logo" src="{% static 'home/logo.png' %}" alt="Logo" title="Home" onclick="window.location.href='{% url 'home:index' %}';">
+        <nav>
+            <button type="button" class="dropdown_button" id="dropdown_button" onclick="sidebar=sidebar.open">
+                <img id="dropdown_menu_button" class="dropdown_button_img" src="{% static 'home/menu_button_img.png' %}" alt="dropdown_img">
+            </button>
+
+
             {% if request.user.is_authenticated %}
             <p class="welcome-text">Welcome {{ request.user.username }}!</p>
             <button class="head-button" style="right: 30px;" onclick="window.location.href='{% url 'home:logout' %}';">
@@ -317,17 +726,80 @@
                 Register
             </button>
             {% endif %}
-            <img class="image" src="{% static 'home/home-headline.jpg' %}" alt="Gemuese">
+
             <button class="head-button" title="Description" style="left:30%;" onclick="window.location.href='{% url 'home:description' %}';">
                 Description
             </button>
-        </div>
+        </nav>
     </header>
+
+
+
+
 
 {% block authForm %}
 
+    <div class="sidebar_container">
+        <aside class="sidebar open" id="sidebar">
+            <div class="top_sidebar">
+                <button class="sidebar_profile_btn" id="profile" title="Profile" onclick="window.location.href='{% url 'home:profile' %}';">{% comment %} path muss zur settings-page {% endcomment %}
+                    <img class="sidebar_img" style="width: 100%; height: 100%; margin: 0;" src="{% static 'home/avatar1.png' %}" alt="Settings" title="Settings">
+                </button>
+                <div class="top_sidebar_info" style="color: white; position: absolute; bottom: 5%; z-index: 4;">
+                   {{ request.user.username }} <br>
+                    Registered since: {{ request.user.date_joined }}
+                </div>
+            </div>
+            <div class="under_sidebar">
+                <ul class="sidebar_item_container">
+                    <li class="item_blocks">
+                        <button class="sidebar_button" id="marked_recipes" title="Marked Recipes" onclick="window.location.href='{% url 'home:profile' %}';">{% comment %} path muss zur top-ten-page {% endcomment %}
+                            <span class="sidebar_button_text">Marked Recipes</span>
+                            <img class="sidebar_img" src="{% static 'home/marked_recipes.png' %}" alt="top_10_img">
+                        </button>
+                    </li>
+                    <li class="item_blocks">
+                        <button class="sidebar_button" id="last_recipes" title="Last Recipes" onclick="window.location.href='{% url 'home:profile' %}';">
+                            <span class="sidebar_button_text">Last Recipes</span>
+                            <img class="sidebar_img" src="{% static 'home/cooking_time.png' %}" alt="last_recipe_img">
+                        </button>
+                    </li>
+
+
+
+                    <li class="item_blocks">
+                        <button class="sidebar_button" id="settings" title="Settings" onclick="window.location.href='{% url 'home:settings' %}';">
+                            <span class="sidebar_button_text">Settings</span>
+                            <img class="sidebar_img" src="{% static 'home/settings.png' %}" alt="top_10_img">
+                        </button>
+                    </li>
+                    <li class="item_blocks">
+                        <button class="sidebar_button" id="logout" title="Logout" onclick="window.location.href='{% url 'home:logout' %}';">
+                            <span class="sidebar_button_text">Logout</span>
+                            <img class="sidebar_img" style="margin-left: 3px;" src="{% static 'home/logout.png' %}" alt="top_10_img">
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </aside>
+    </div>
+
+
+
+
+
     <div class="search-container">
         <label class="search-label" for="product-Item">Which groceries do you have at home?</label> {%  comment %} labesl stehen am Anfang einer input leiste und beschreiben, was der user eingeben soll {% endcomment %}
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <span class="search-box">
+                {{ form.as_p }}
+            </span>
+            <button class="button-class" type="submit" onclick="ClearField()" title="Add Grocery" style="position: absolute; right: 0; bottom: -65px;">
+                Add
+            </button>
+        </form>
+
             <input type="text" id="product-Item" title="Fill the Pot" class="searchbox" maxlength="50"
                 placeholder="Fill the Pot">
 
@@ -336,17 +808,17 @@
              &#x2718;
         </button>
         <p class="information">Please keep in mind: Just the Product name - no comma</p>
-        <button class="button-class" onclick="addItem()" title="Add Grocery" style="position: absolute; right: 0; bottom: -65px;">
-            Add
-        </button>
+
         <img class="search-img" src="{% static 'home/pot2.png' %}" alt=Pot>
     </div>
 
     <div class="product-container">
-        {% for product in groceries %}
+        {% for product in object_list %}
             <div class="list-item">
+            <form method="get" action="">
                <p class="product-text">&#x2022; {{ product.name }}</p>
-                <button class="btn btn-primary" title="delete">
+            </form>
+                <button class="btn btn-primary" title="delete" onclick="window.location.href='{% url 'home:delete' product.pk %}';"> <!-- die Funktion in views.py wird anahnd der übermittelten product.id ausgeführt -->
                     <img class="trashcan-img" src="{% static 'home/trash-can.png'%}" alt="trash">
                 </button>
             </div>
@@ -394,12 +866,13 @@ in diesen Bereich kommt immer nur das was ich verändert.
 
 {% comment %}
 ToDo Morgen:
-- finish headmenu (top 10 recipes)
+- finish headmenu (top 10 recipes o. Recipes of the Week)
 - drop down menu seite
 - User Interface? (anfangen)
 - fußzeile
 # 2 davon morgen #
-
+ Tipps:#
+ poswition: sticky<; lässt einen button (auch beim scrollen immer an gleicher Stelle stehen. zB in der oberen linken ecke des Bildschirms
 
 
 

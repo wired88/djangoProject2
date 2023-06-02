@@ -1,0 +1,97 @@
+{% extends 'home/base.html' %} {% comment gibt an da wir den Code block aus home/base benutzen - so ähnlich wie vererbung von files %}{% endcomment %}
+{% load static %}
+
+
+{% block title %} Home - Create Your own Recipe {% endblock %}
+
+{% block styles %}
+
+
+
+
+.create_recipes_bar {
+    border: 1px solid black;
+    border-radius: 5px;
+    background-color: #03442c;
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.6);
+    left: 20%;
+    top: 300px;
+    position: relative;
+    width: 1000px;
+    height: 800px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+
+    }
+
+.head-container {
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 15%;
+    top: 0;
+    position: absolute;
+    color: white;
+    }
+
+.body {
+    border: 1px solid black;
+    font-weight: bold;
+    top: 15%;
+    width: 90%;
+    height: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: absolute;
+    background-color: beige;
+    }
+
+
+
+
+{% endblock %}
+
+
+
+
+{% block authForm %}
+
+<form method="post" enctype="multipart/form-data">
+{% csrf_token %}
+    <main>
+        <div class="create_recipes_bar">
+            <div class="head-container">
+                <h2>Create your own Recipes here</h2>
+            </div>
+            <div class="body">
+                {{ form.as_p }}
+                <button class='button-class' style="bottom: -36px; padding: 5px; right: -24px;" type="submit">Create Recipe</button>
+            </div>
+
+        </div>
+    </main>
+
+
+
+
+
+
+
+
+
+
+
+
+</form>
+
+
+
+
+
+
+
+{% endblock %}
